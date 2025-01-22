@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Population</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 60%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 4px;
+            text-align: center;
+        }
+        
+        td:nth-child(1) {
+            background-color: powderblue;
+        }
+        td:nth-child(2) {
+            background-color: lightgreen;
+        }
+        .country {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>Country Wise Population</h1>
+    <table>
+        <tr style="background-color: red;">
+            <th>Country</th>
+            <th colspan="2">Population(in Crores)</th>
+        </tr>
+        <tr>
+            <th class="country" rowspan="4">INDIA</th>
+            <tr><td>1998</td><td>85</td></tr>
+            <tr><td>1999</td><td>90</td></tr>
+            <tr><td>2000</td><td>100</td></tr>
+        </tr>
+        <tr>
+            <th class="country" rowspan="4">USA</th>
+            <tr><td>1998</td><td>30</td></tr>
+            <tr><td>1999</td><td>35</td></tr>
+            <tr><td>2000</td><td>40</td></tr>
+        </tr>
+        <tr>
+            <th class="country" rowspan="4">UK</th>
+            <tr><td>1998</td><td>25</td></tr>
+            <tr><td>1999</td><td>30</td></tr>
+            <tr><td>2000</td><td>35</td></tr>
+        </tr>
+    </table>
+</body>
+</html>

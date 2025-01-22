@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee Data CRUD</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 20px;
+background-color: #f4f4f4;
+}
+
+h1 {
+text-align: center;
+}
+
+.container {
+width: 70%;
+margin: auto;
+padding: 20px;
+background-color: white;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container {
+margin-bottom: 20px;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="number"],
+.form-container button {
+width: 100%;
+padding: 10px;
+margin-bottom: 10px;
+border: 1px solid #ddd;
+border-radius: 4px;
+}
+
+button {
+background-color: #4CAF50;
+color: white;
+cursor: pointer;
+}
+
+button:hover {
+background-color: #45a049;
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 20px;
+}
+
+table, th, td {
+border: 1px solid #ddd;
+}
+
+th, td {
+padding: 10px;
+text-align: left;
+}
+
+th {
+background-color: #f2f2f2;
+}
+
+.actions button {
+padding: 5px 10px;
+margin-right: 5px;
+border: none;
+color: white;
+cursor: pointer;
+}
+
+.edit-btn {
+background-color: #ff9800;
+}
+
+.delete-btn {
+background-color: #f44336;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>Employee Data CRUD</h1>
+
+<!-- Form for adding/updating employee -->
+<div class="form-container">
+<h2>Employee Form</h2>
+<form id="employeeForm">
+<input type="hidden" id="employeeId"> <!-- Hidden input for employee ID during edit -->
+
+<label for="empName">Employee Name:</label>
+<input type="text" id="empName" placeholder="Enter employee name" required>
+
+<label for="empEmail">Email:</label>
+<input type="email" id="empEmail" placeholder="Enter employee email" required>
+
+<label for="empPosition">Position:</label>
+<input type="text" id="empPosition" placeholder="Enter employee position" required>
+
+<label for="empSalary">Salary:</label>
+<input type="number" id="empSalary" placeholder="Enter employee salary" required>
+
+<button type="submit">Submit</button>
+</form>
+</div>
+
+<!-- Table to display employee data -->
+<div class="table-container">
+<h2>Employee Records</h2>
+<table id="employeeTable">
+<thead>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Position</th>
+<th>Salary</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<!-- Employee records will be displayed here -->
+</tbody>
+</table>
+</div>
+</div>
+
+<script>
+let employees = [
+{ id: 1, name: 'John Doe', email: 'john@example.com', position: 'Developer', salary: 50000 },
+{ id: 2, name: 'Jane Smith', email: 'jane@example.com', position: 'Manager', salary: 60000 }
+];
+
+function displayEmployeeData() {
+const tableBody = document.querySelector('#employeeTable tbody');
+tableBody.innerHTML = ''; 
+employees.forEach(emp => {
+const row = tableBody.insertRow();
+row.innerHTML = `
+<td>${emp.name}</td>
+<td>${emp.email}</td>
+<td>${emp.position}</td>
+<td>${emp.salary}</td>
+<td class="actions">
+<button class="edit-btn" onclick="editEmployee(${emp.id})">Edit</button>
+<button class="delete-btn" onclick="deleteEmployee(${emp.id})">Delete</button>
+</td>
+`;
+});
+}
+
+document.getElementById('employeeForm').addEventListener('submit', function(event) {
+event.preventDefault();
+
+const employeeId = document.getElementById('employeeId').value;
+const name = document.getElementById('empName').value;
+const email = document.getElementById('empEmail').value;
+const position = document.getElementById('empPosition').value;
+const salary = document.getElementById('empSalary').value;
+
+if (employeeId) {
+const employeeIndex = employees.findIndex(emp => emp.id == employeeId);
+if (employeeIndex !== -1) {
+employees[employeeIndex] = { id: employeeId, name, email, position, salary };
+}
+} else {
+const newEmployee = {
+id: employees.length + 1,
+name,
+email,
+position,
+salary
+};
+employees.push(newEmployee);
+}
+
+document.getElementById('employeeForm').reset();
+document.getElementById('employeeId').value = '';
+displayEmployeeData();
+});
+
+function editEmployee(id) {
+const employee = employees.find(emp => emp.id === id);
+if (employee) {
+document.getElementById('empName').value = employee.name;
+document.getElementById('empEmail').value = employee.email;
+document.getElementById('empPosition').value = employee.position;
+document.getElementById('empSalary').value = employee.salary;
+document.getElementById('employeeId').value = employee.id;
+}
+}
+
+function deleteEmployee(id) {
+employees = employees.filter(emp => emp.id !== id);
+displayEmployeeData();
+}
+
+displayEmployeeData();
+</script>
+</body>
+</html>
